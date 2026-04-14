@@ -1,0 +1,30 @@
+# Dépendances
+node_modules/
+.pnp
+.pnp.js
+
+# Variables d'environnement (NE JAMAIS COMMITTER)
+.env
+.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+.expo/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Tests
+coverage/
