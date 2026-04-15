@@ -9,7 +9,7 @@
       "cwd": "backend"
     },
     {
-      "name": "Mobile App (Expo)",
+      "name": "Mobile App (Expo Web)",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "web"],
       "port": 8081,
