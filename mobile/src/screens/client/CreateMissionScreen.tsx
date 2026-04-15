@@ -89,7 +89,7 @@ export default function CreateMissionScreen({ navigation, route }: any) {
           <Switch
             value={form[key as keyof typeof form] as boolean}
             onValueChange={v => update(key, v)}
-            trackColor={{ true: '#FF6B35' }}
+            trackColor={{ true: '#1A3A8C' }}
           />
         </View>
       ))}
@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20,
     borderWidth: 1.5, borderColor: '#ddd', marginRight: 8,
   },
-  typeChipActive: { borderColor: '#FF6B35', backgroundColor: '#FFF3EF' },
+  typeChipActive: { borderColor: '#1A3A8C', backgroundColor: '#FFF3EF' },
   typeText: { color: '#666', fontWeight: '500', textTransform: 'capitalize' },
-  typeTextActive: { color: '#FF6B35' },
+  typeTextActive: { color: '#1A3A8C' },
   input: {
     borderWidth: 1, borderColor: '#ddd', borderRadius: 12,
     padding: 14, fontSize: 15, backgroundColor: '#f9f9f9',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   switchRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10 },
   switchLabel: { fontSize: 15, color: '#333' },
   button: {
-    backgroundColor: '#FF6B35', borderRadius: 14,
+    backgroundColor: '#1A3A8C', borderRadius: 14,
     padding: 18, alignItems: 'center', marginTop: 24,
   },
   buttonText: { color: '#fff', fontSize: 16, fontWeight: '700' },

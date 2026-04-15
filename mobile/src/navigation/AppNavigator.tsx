@@ -8,6 +8,10 @@ import { useAuth } from '../context/AuthContext';
 // Auth screens
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
+import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
+
+// Admin screens
+import AdminDashboardScreen from '../screens/admin/AdminDashboardScreen';
 
 // Client screens
 import ClientHomeScreen from '../screens/client/ClientHomeScreen';
@@ -19,6 +23,10 @@ import MyMissionsScreen from '../screens/client/MyMissionsScreen';
 import TransporterHomeScreen from '../screens/transporter/TransporterHomeScreen';
 import TransporterMissionsScreen from '../screens/transporter/TransporterMissionsScreen';
 import TransporterProfileScreen from '../screens/transporter/TransporterProfileScreen';
+import ProofDeliveryScreen from '../screens/transporter/ProofDeliveryScreen';
+import TransporterProfileSetupScreen from '../screens/transporter/TransporterProfileSetupScreen';
+import ChatScreen from '../screens/shared/ChatScreen';
+import ReviewScreen from '../screens/shared/ReviewScreen';
 
 // Shared
 import ProfileScreen from '../screens/shared/ProfileScreen';
@@ -64,17 +72,28 @@ export default function AppNavigator() {
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
           </>
         ) : user.role === 'transporter' ? (
           <>
             <Stack.Screen name="TransporterMain" component={TransporterTabs} />
             <Stack.Screen name="MissionDetail" component={MissionDetailScreen} />
+            <Stack.Screen name="ProofDelivery" component={ProofDeliveryScreen} />
+            <Stack.Screen name="TransporterProfileSetup" component={TransporterProfileSetupScreen} />
+            <Stack.Screen name="Chat" component={ChatScreen} />
+            <Stack.Screen name="Review" component={ReviewScreen} />
+          </>
+        ) : user.role === 'admin' ? (
+          <>
+            <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
           </>
         ) : (
           <>
             <Stack.Screen name="ClientMain" component={ClientTabs} />
             <Stack.Screen name="CreateMission" component={CreateMissionScreen} />
             <Stack.Screen name="MissionDetail" component={MissionDetailScreen} />
+            <Stack.Screen name="Chat" component={ChatScreen} />
+            <Stack.Screen name="Review" component={ReviewScreen} />
           </>
         )}
       </Stack.Navigator>

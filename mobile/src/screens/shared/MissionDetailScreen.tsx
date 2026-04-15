@@ -67,9 +67,35 @@ export default function MissionDetailScreen({ route, navigation }: any) {
         </View>
       )}
 
+      {mission.transporter && (
+        <TouchableOpacity
+          style={styles.chatBtn}
+          onPress={() => navigation.navigate('Chat', {
+            missionId: mission.id,
+            otherName: isClient
+              ? `${mission.transporter.user?.firstName} ${mission.transporter.user?.lastName}`
+              : `${mission.client?.firstName} ${mission.client?.lastName}`,
+          })}
+        >
+          <Text style={styles.chatText}>💬 Messagerie</Text>
+        </TouchableOpacity>
+      )}
+
       {isClient && mission.status === 'delivered' && (
         <TouchableOpacity style={styles.validateBtn} onPress={handleValidate}>
           <Text style={styles.validateText}>✓ Valider la livraison</Text>
+        </TouchableOpacity>
+      )}
+
+      {isClient && mission.status === 'validated' && mission.transporter && (
+        <TouchableOpacity
+          style={styles.reviewBtn}
+          onPress={() => navigation.navigate('Review', {
+            missionId: mission.id,
+            transporterId: mission.transporter.id,
+          })}
+        >
+          <Text style={styles.reviewText}>⭐ Laisser un avis</Text>
         </TouchableOpacity>
       )}
 
@@ -95,7 +121,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
   content: { padding: 24, paddingTop: 60, paddingBottom: 40 },
   back: { marginBottom: 16 },
-  backText: { color: '#FF6B35', fontSize: 16, fontWeight: '600' },
+  backText: { color: '#1A3A8C', fontSize: 16, fontWeight: '600' },
   title: { fontSize: 26, fontWeight: 'bold', color: '#1a1a1a', marginBottom: 20, textTransform: 'capitalize' },
   card: { backgroundColor: '#fff', borderRadius: 16, padding: 16, marginBottom: 16 },
   sectionTitle: { fontSize: 16, fontWeight: '700', color: '#1a1a1a', marginBottom: 10 },
@@ -107,4 +133,8 @@ const styles = StyleSheet.create({
   validateText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   cancelBtn: { backgroundColor: '#fff', borderRadius: 14, padding: 16, alignItems: 'center', borderWidth: 1, borderColor: '#EF4444', marginTop: 8 },
   cancelText: { color: '#EF4444', fontWeight: '700', fontSize: 15 },
+  chatBtn: { backgroundColor: '#1A3A8C', borderRadius: 14, padding: 16, alignItems: 'center', marginTop: 8 },
+  chatText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  reviewBtn: { backgroundColor: '#F5C200', borderRadius: 14, padding: 16, alignItems: 'center', marginTop: 8 },
+  reviewText: { color: '#1A3A8C', fontWeight: '700', fontSize: 15 },
 });

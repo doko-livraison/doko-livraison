@@ -29,12 +29,11 @@ export default function TransporterMissionsScreen({ navigation }: any) {
 
   useFocusEffect(useCallback(() => { load(); }, []));
 
-  const submitProof = async (missionId: string) => {
-    // TODO: ajouter sélecteur de photo avec ImagePicker
-    Alert.alert('Preuve de livraison', 'Photo + signature à implémenter avec expo-image-picker');
+  const submitProof = (missionId: string) => {
+    navigation.navigate('ProofDelivery', { missionId });
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#FF6B35" />;
+  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#1A3A8C" />;
 
   return (
     <View style={styles.container}>
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
   badgeText: { fontSize: 12, fontWeight: '700' },
   address: { fontSize: 14, color: '#555', marginTop: 4 },
   proofBtn: {
-    backgroundColor: '#FF6B35', borderRadius: 12, padding: 12,
+    backgroundColor: '#1A3A8C', borderRadius: 12, padding: 12,
     alignItems: 'center', marginTop: 12,
   },
   proofText: { color: '#fff', fontWeight: '700', fontSize: 14 },

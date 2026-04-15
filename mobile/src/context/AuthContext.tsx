@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authAPI } from '../services/api';
+import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
+import { authAPI, notificationsAPI } from '../services/api';
+import { connectSocket, disconnectSocket } from '../services/socket';
 
 interface User {
   id: string;
@@ -27,31 +30,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    AsyncStorage.multiGet(['token', 'user']).then(([tokenItem, userItem]) => {
-      if (tokenItem[1]) setToken(tokenItem[1]);
-      if (userItem[1]) setUser(JSON.parse(userItem[1]));
-      setIsLoading(false);
-    });
+    const restore = async () => {
+      try {
+        const savedToken = await AsyncStorage.getItem('token');
+        const savedUser = await AsyncStorage.getItem('user');
+        if (savedToken) setToken(savedToken);
+        if (savedUser) setUser(JSON.parse(savedUser));
+      } catch {
+        // session corrompue, on ignore
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    restore();
   }, []);
+
+  const registerPushToken = async () => {
+    try {
+      if (Platform.OS === 'web') return;
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') return;
+      const tokenData = await Notifications.getExpoPushTokenAsync();
+      await notificationsAPI.registerToken(tokenData.data);
+    } catch {}
+  };
 
   const login = async (email: string, password: string) => {
     const res = await authAPI.login({ email, password });
     const { user, token } = res.data;
-    await AsyncStorage.multiSet([['token', token], ['user', JSON.stringify(user)]]);
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
     setUser(user);
     setToken(token);
+    connectSocket();
+    registerPushToken();
   };
 
   const register = async (data: any) => {
     const res = await authAPI.register(data);
     const { user, token } = res.data;
-    await AsyncStorage.multiSet([['token', token], ['user', JSON.stringify(user)]]);
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
     setUser(user);
     setToken(token);
+    connectSocket();
+    registerPushToken();
   };
 
   const logout = async () => {
-    await AsyncStorage.multiRemove(['token', 'user']);
+    disconnectSocket();
+    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('user');
     setUser(null);
     setToken(null);
   };

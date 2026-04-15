@@ -32,7 +32,7 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { backgroundColor: '#FF6B35', padding: 32, paddingTop: 60, alignItems: 'center' },
+  header: { backgroundColor: '#1A3A8C', padding: 32, paddingTop: 60, alignItems: 'center' },
   avatar: {
     width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.3)',
     justifyContent: 'center', alignItems: 'center', marginBottom: 12,

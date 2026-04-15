@@ -6,14 +6,13 @@ import { Mission, MissionStatus } from '../missions/mission.entity';
 
 @Injectable()
 export class PaymentsService {
-  private stripe: Stripe;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private stripe: any;
 
   constructor(
     @InjectRepository(Mission) private missionRepo: Repository<Mission>,
   ) {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-      apiVersion: '2025-03-31.basil',
-    });
+    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
   }
 
   async createDepositIntent(missionId: string, amount: number) {

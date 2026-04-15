@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
+import { colors } from '../../utils/colors';
 
 const DELIVERY_TYPES = [
   { key: 'colis', label: 'Colis', icon: '📦' },
@@ -46,24 +47,23 @@ export default function ClientHomeScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { backgroundColor: '#FF6B35', padding: 24, paddingTop: 60 },
-  greeting: { fontSize: 22, fontWeight: 'bold', color: '#fff' },
-  subtitle: { fontSize: 16, color: '#FFD4C2', marginTop: 4 },
-  grid: {
-    flexDirection: 'row', flexWrap: 'wrap', padding: 16, gap: 12,
-  },
+  container: { flex: 1, backgroundColor: colors.background },
+  header: { backgroundColor: colors.primary, padding: 24, paddingTop: 60 },
+  greeting: { fontSize: 22, fontWeight: '800', color: colors.white },
+  subtitle: { fontSize: 15, color: colors.accent, marginTop: 4, fontWeight: '600' },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', padding: 16, gap: 12 },
   card: {
-    width: '47%', backgroundColor: '#fff', borderRadius: 16,
+    width: '47%', backgroundColor: colors.white, borderRadius: 16,
     padding: 20, alignItems: 'center', gap: 8,
-    shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06, shadowRadius: 8, elevation: 2,
+    shadowColor: colors.primary, shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08, shadowRadius: 8, elevation: 2,
+    borderBottomWidth: 3, borderBottomColor: colors.accent,
   },
   cardIcon: { fontSize: 32 },
-  cardLabel: { fontSize: 14, fontWeight: '600', color: '#333', textAlign: 'center' },
+  cardLabel: { fontSize: 14, fontWeight: '700', color: colors.textDark, textAlign: 'center' },
   ctaButton: {
-    margin: 16, backgroundColor: '#FF6B35', borderRadius: 16,
+    margin: 16, backgroundColor: colors.accent, borderRadius: 16,
     padding: 18, alignItems: 'center',
   },
-  ctaText: { color: '#fff', fontSize: 17, fontWeight: '700' },
+  ctaText: { color: colors.primary, fontSize: 17, fontWeight: '800', letterSpacing: 0.5 },
 });

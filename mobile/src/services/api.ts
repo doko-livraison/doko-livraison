@@ -15,6 +15,22 @@ api.interceptors.request.use(async (config) => {
 export const authAPI = {
   register: (data: any) => api.post('/auth/register', data),
   login: (data: any) => api.post('/auth/login', data),
+  forgotPassword: (email: string) => api.post('/auth/forgot-password', { email }),
+  resetPassword: (token: string, password: string) => api.post('/auth/reset-password', { token, password }),
+};
+
+// Admin
+export const adminAPI = {
+  getStats: () => api.get('/admin/stats'),
+  getMissions: () => api.get('/admin/missions'),
+  getUsers: () => api.get('/admin/users'),
+  suspendUser: (id: string) => api.patch(`/admin/users/${id}/suspend`),
+  cancelMission: (id: string) => api.patch(`/admin/missions/${id}/cancel`),
+};
+
+// Push notifications
+export const notificationsAPI = {
+  registerToken: (pushToken: string) => api.post('/notifications/register-token', { pushToken }),
 };
 
 // Missions
@@ -39,6 +55,22 @@ export const transportersAPI = {
   getOne: (id: string) => api.get(`/transporters/${id}`),
   updateAvailability: (isAvailable: boolean) =>
     api.patch('/transporters/availability', { isAvailable }),
+};
+
+export const transporterAPI = transportersAPI;
+
+// Messages
+export const messagesAPI = {
+  getByMission: (missionId: string) => api.get(`/messages/${missionId}`),
+  send: (missionId: string, content: string) =>
+    api.post(`/messages/${missionId}`, { content }),
+};
+
+// Avis / Reviews
+export const reviewsAPI = {
+  submit: (data: { missionId: string; transporterId: string; rating: number; comment?: string }) =>
+    api.post('/reviews', data),
+  getForTransporter: (transporterId: string) => api.get(`/reviews/transporter/${transporterId}`),
 };
 
 // Paiements

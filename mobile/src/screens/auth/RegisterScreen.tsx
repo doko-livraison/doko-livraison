@@ -4,6 +4,7 @@ import {
   ScrollView, Alert, ActivityIndicator,
 } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
+import { colors } from '../../utils/colors';
 
 export default function RegisterScreen({ navigation }: any) {
   const { register } = useAuth();
@@ -32,13 +33,14 @@ export default function RegisterScreen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>Créer un compte</Text>
+      <Text style={styles.title}>CRÉER UN{'\n'}COMPTE</Text>
+      <View style={styles.accentBar} />
 
-      <TextInput style={styles.input} placeholder="Prénom *" value={form.firstName} onChangeText={v => update('firstName', v)} />
-      <TextInput style={styles.input} placeholder="Nom *" value={form.lastName} onChangeText={v => update('lastName', v)} />
-      <TextInput style={styles.input} placeholder="Email *" value={form.email} onChangeText={v => update('email', v)} keyboardType="email-address" autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder="Téléphone" value={form.phone} onChangeText={v => update('phone', v)} keyboardType="phone-pad" />
-      <TextInput style={styles.input} placeholder="Mot de passe *" value={form.password} onChangeText={v => update('password', v)} secureTextEntry />
+      <TextInput style={styles.input} placeholder="Prénom *" placeholderTextColor="rgba(255,255,255,0.4)" value={form.firstName} onChangeText={v => update('firstName', v)} />
+      <TextInput style={styles.input} placeholder="Nom *" placeholderTextColor="rgba(255,255,255,0.4)" value={form.lastName} onChangeText={v => update('lastName', v)} />
+      <TextInput style={styles.input} placeholder="Email *" placeholderTextColor="rgba(255,255,255,0.4)" value={form.email} onChangeText={v => update('email', v)} keyboardType="email-address" autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder="Téléphone" placeholderTextColor="rgba(255,255,255,0.4)" value={form.phone} onChangeText={v => update('phone', v)} keyboardType="phone-pad" />
+      <TextInput style={styles.input} placeholder="Mot de passe *" placeholderTextColor="rgba(255,255,255,0.4)" value={form.password} onChangeText={v => update('password', v)} secureTextEntry />
 
       <Text style={styles.label}>Je suis :</Text>
       <View style={styles.roleRow}>
@@ -67,26 +69,29 @@ export default function RegisterScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  content: { padding: 24, paddingTop: 60 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#1a1a1a', marginBottom: 24 },
+  container: { flex: 1, backgroundColor: colors.primary },
+  content: { padding: 28, paddingTop: 60, paddingBottom: 40 },
+  title: { fontSize: 28, fontWeight: '900', color: colors.white, marginBottom: 8, letterSpacing: 2 },
+  accentBar: { height: 4, width: 50, backgroundColor: colors.accent, borderRadius: 2, marginBottom: 24 },
   input: {
-    borderWidth: 1, borderColor: '#ddd', borderRadius: 12,
-    padding: 16, fontSize: 16, marginBottom: 12, backgroundColor: '#f9f9f9',
+    borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.2)', borderRadius: 14,
+    padding: 16, fontSize: 15, marginBottom: 12,
+    backgroundColor: 'rgba(255,255,255,0.1)', color: colors.white,
   },
-  label: { fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 8, marginTop: 4 },
+  label: { fontSize: 15, fontWeight: '700', color: colors.accent, marginBottom: 8, marginTop: 4, letterSpacing: 1 },
   roleRow: { flexDirection: 'row', gap: 12, marginBottom: 20 },
   roleBtn: {
-    flex: 1, padding: 14, borderRadius: 12, borderWidth: 2,
-    borderColor: '#ddd', alignItems: 'center',
+    flex: 1, padding: 14, borderRadius: 14, borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.2)', alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.07)',
   },
-  roleBtnActive: { borderColor: '#FF6B35', backgroundColor: '#FFF3EF' },
-  roleText: { fontSize: 15, color: '#666', fontWeight: '600' },
-  roleTextActive: { color: '#FF6B35' },
+  roleBtnActive: { borderColor: colors.accent, backgroundColor: 'rgba(245,194,0,0.15)' },
+  roleText: { fontSize: 15, color: 'rgba(255,255,255,0.5)', fontWeight: '700' },
+  roleTextActive: { color: colors.accent },
   button: {
-    backgroundColor: '#FF6B35', borderRadius: 12,
-    padding: 16, alignItems: 'center', marginBottom: 16,
+    backgroundColor: colors.accent, borderRadius: 14,
+    padding: 17, alignItems: 'center', marginBottom: 16, marginTop: 4,
   },
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  link: { textAlign: 'center', color: '#FF6B35' },
+  buttonText: { color: colors.primary, fontSize: 16, fontWeight: '800', letterSpacing: 1 },
+  link: { textAlign: 'center', color: 'rgba(255,255,255,0.6)', fontSize: 14 },
 });

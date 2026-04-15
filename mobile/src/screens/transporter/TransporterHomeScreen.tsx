@@ -38,7 +38,7 @@ export default function TransporterHomeScreen({ navigation }: any) {
     }
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#FF6B35" />;
+  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#1A3A8C" />;
 
   return (
     <View style={styles.container}>
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   },
   cardRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 10, alignItems: 'center' },
   type: { fontSize: 17, fontWeight: '700', color: '#1a1a1a', textTransform: 'capitalize' },
-  tag: { fontSize: 12, backgroundColor: '#FFF3EF', color: '#FF6B35', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 10 },
+  tag: { fontSize: 12, backgroundColor: '#FFF3EF', color: '#1A3A8C', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 10 },
   address: { fontSize: 14, color: '#555', marginTop: 4 },
   info: { fontSize: 13, color: '#888', marginTop: 6 },
   desc: { fontSize: 14, color: '#666', marginTop: 8, fontStyle: 'italic' },
   acceptBtn: {
-    backgroundColor: '#FF6B35', borderRadius: 12, padding: 14,
+    backgroundColor: '#1A3A8C', borderRadius: 12, padding: 14,
     alignItems: 'center', marginTop: 14,
   },
   acceptText: { color: '#fff', fontWeight: '700', fontSize: 15 },

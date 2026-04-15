@@ -6,7 +6,7 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { transportersAPI } from '../../services/api';
 
-export default function TransporterProfileScreen() {
+export default function TransporterProfileScreen({ navigation }: any) {
   const { user, logout } = useAuth();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ export default function TransporterProfileScreen() {
     } catch {}
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#FF6B35" />;
+  if (loading) return <ActivityIndicator style={{ flex: 1 }} color="#1A3A8C" />;
 
   return (
     <ScrollView style={styles.container}>
@@ -36,6 +36,15 @@ export default function TransporterProfileScreen() {
         <Text style={styles.name}>{user?.firstName} {user?.lastName}</Text>
         <Text style={styles.role}>Transporteur</Text>
       </View>
+
+      {!profile && (
+        <TouchableOpacity
+          style={styles.setupBtn}
+          onPress={() => navigation.navigate('TransporterProfileSetup')}
+        >
+          <Text style={styles.setupText}>⚙️ Configurer mon profil transporteur</Text>
+        </TouchableOpacity>
+      )}
 
       {profile && (
         <View style={styles.section}>
@@ -72,7 +81,7 @@ export default function TransporterProfileScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { backgroundColor: '#FF6B35', padding: 32, paddingTop: 60, alignItems: 'center' },
+  header: { backgroundColor: '#1A3A8C', padding: 32, paddingTop: 60, alignItems: 'center' },
   avatar: {
     width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.3)',
     justifyContent: 'center', alignItems: 'center', marginBottom: 12,
@@ -88,4 +97,6 @@ const styles = StyleSheet.create({
   infoValue: { fontSize: 15, fontWeight: '600', color: '#1a1a1a' },
   logoutBtn: { margin: 16, backgroundColor: '#fff', borderRadius: 14, padding: 16, alignItems: 'center', borderWidth: 1, borderColor: '#EF4444' },
   logoutText: { color: '#EF4444', fontWeight: '700', fontSize: 15 },
+  setupBtn: { margin: 16, backgroundColor: '#F5C200', borderRadius: 14, padding: 16, alignItems: 'center' },
+  setupText: { color: '#1A3A8C', fontWeight: '700', fontSize: 15 },
 });
