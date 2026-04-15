@@ -36,20 +36,26 @@ const Tab = createBottomTabNavigator();
 
 function ClientTabs() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Accueil" component={ClientHomeScreen} />
-      <Tab.Screen name="Mes missions" component={MyMissionsScreen} />
-      <Tab.Screen name="Profil" component={ProfileScreen} />
+    <Tab.Navigator screenOptions={{
+      headerShown: false,
+      tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+    }}>
+      <Tab.Screen name="Accueil" component={ClientHomeScreen} options={{ tabBarLabel: 'Accueil' }} />
+      <Tab.Screen name="Mes missions" component={MyMissionsScreen} options={{ tabBarLabel: 'Missions' }} />
+      <Tab.Screen name="Profil" component={ProfileScreen} options={{ tabBarLabel: 'Profil' }} />
     </Tab.Navigator>
   );
 }
 
 function TransporterTabs() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Missions" component={TransporterHomeScreen} />
-      <Tab.Screen name="Mes livraisons" component={TransporterMissionsScreen} />
-      <Tab.Screen name="Profil" component={TransporterProfileScreen} />
+    <Tab.Navigator screenOptions={{
+      headerShown: false,
+      tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+    }}>
+      <Tab.Screen name="Missions" component={TransporterHomeScreen} options={{ tabBarLabel: 'Missions' }} />
+      <Tab.Screen name="Mes livraisons" component={TransporterMissionsScreen} options={{ tabBarLabel: 'Livraisons' }} />
+      <Tab.Screen name="Profil" component={TransporterProfileScreen} options={{ tabBarLabel: 'Profil' }} />
     </Tab.Navigator>
   );
 }

@@ -62,7 +62,7 @@ export default function RegisterScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>Déjà un compte ? Se connecter</Text>
+        <Text style={styles.link}>Déjà un compte ? <Text style={{ color: colors.accent, fontWeight: '700' }}>Connexion</Text></Text>
       </TouchableOpacity>
     </ScrollView>
   );
