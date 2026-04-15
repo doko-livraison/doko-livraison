@@ -41,6 +41,9 @@ export class Mission {
   @Column({ type: 'enum', enum: DeliveryType })
   deliveryType: DeliveryType;
 
+  @Column({ type: 'text', array: true, default: [] })
+  deliveryTypes: string[];
+
   @Column({ type: 'enum', enum: MissionStatus, default: MissionStatus.PENDING })
   status: MissionStatus;
 

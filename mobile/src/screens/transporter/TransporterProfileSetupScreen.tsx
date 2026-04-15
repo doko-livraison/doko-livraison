@@ -7,7 +7,13 @@ import { Picker } from '@react-native-picker/picker';
 import { transporterAPI } from '../../services/api';
 import { colors } from '../../utils/colors';
 
-const VEHICLE_TYPES = ['moto', 'voiture', 'camionnette', 'camion', 'plateau'];
+const VEHICLE_TYPES = [
+  { key: 'moto', label: 'Moto', icon: '🏍️' },
+  { key: 'voiture', label: 'Voiture', icon: '🚗' },
+  { key: 'camionnette', label: 'Camionnette', icon: '🚐' },
+  { key: 'camion', label: 'Camion', icon: '🚛' },
+  { key: 'plateau', label: 'Plateau', icon: '🚜' },
+];
 
 export default function TransporterProfileSetupScreen({ navigation }: any) {
   const [vehicleType, setVehicleType] = useState('camionnette');
@@ -49,20 +55,23 @@ export default function TransporterProfileSetupScreen({ navigation }: any) {
       <Text style={styles.subtitle}>Complétez votre profil pour recevoir des missions</Text>
 
       <View style={styles.section}>
-        <Text style={styles.label}>Type de véhicule</Text>
-        <View style={styles.pickerWrapper}>
-          <Picker
-            selectedValue={vehicleType}
-            onValueChange={(v) => setVehicleType(v)}
-            style={styles.picker}
-          >
-            {VEHICLE_TYPES.map((v) => (
-              <Picker.Item key={v} label={v.charAt(0).toUpperCase() + v.slice(1)} value={v} />
-            ))}
-          </Picker>
+        <Text style={styles.label}>Type de véhicule *</Text>
+        <View style={styles.vehicleRow}>
+          {VEHICLE_TYPES.map((v) => (
+            <TouchableOpacity
+              key={v.key}
+              style={[styles.vehicleChip, vehicleType === v.key && styles.vehicleChipActive]}
+              onPress={() => setVehicleType(v.key)}
+            >
+              <Text style={styles.vehicleIcon}>{v.icon}</Text>
+              <Text style={[styles.vehicleLabel, vehicleType === v.key && styles.vehicleLabelActive]}>
+                {v.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
-        <Text style={styles.label}>Immatriculation</Text>
+        <Text style={styles.label}>Immatriculation *</Text>
         <TextInput
           style={styles.input}
           placeholder="AA-123-BB"
@@ -72,17 +81,17 @@ export default function TransporterProfileSetupScreen({ navigation }: any) {
           autoCapitalize="characters"
         />
 
-        <Text style={styles.label}>Charge max (kg)</Text>
+        <Text style={styles.label}>Charge max (kg) *</Text>
         <TextInput
           style={styles.input}
-          placeholder="1000"
+          placeholder="Ex : 1000 kg"
           placeholderTextColor={colors.textMuted}
           value={maxWeightKg}
           onChangeText={setMaxWeightKg}
           keyboardType="numeric"
         />
 
-        <Text style={styles.label}>Téléphone</Text>
+        <Text style={styles.label}>Téléphone *</Text>
         <TextInput
           style={styles.input}
           placeholder="+594 6 94 XX XX XX"
@@ -117,10 +126,15 @@ const styles = StyleSheet.create({
     borderWidth: 1.5, borderColor: colors.border, borderRadius: 12,
     padding: 14, fontSize: 15, color: colors.textDark,
   },
-  pickerWrapper: {
-    borderWidth: 1.5, borderColor: colors.border, borderRadius: 12, overflow: 'hidden',
+  vehicleRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 4 },
+  vehicleChip: {
+    alignItems: 'center', padding: 10, borderRadius: 12,
+    borderWidth: 1.5, borderColor: colors.border, minWidth: 80,
   },
-  picker: { color: colors.textDark },
+  vehicleChipActive: { borderColor: colors.primary, backgroundColor: '#EEF2FF' },
+  vehicleIcon: { fontSize: 24, marginBottom: 4 },
+  vehicleLabel: { fontSize: 12, color: colors.textMuted, fontWeight: '600' },
+  vehicleLabelActive: { color: colors.primary },
   btn: {
     backgroundColor: colors.accent, borderRadius: 14,
     padding: 18, alignItems: 'center',

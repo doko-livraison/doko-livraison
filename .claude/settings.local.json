@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(psql -U postgres -c \"CREATE DATABASE doko_livraison;\")",
+      "Bash(npm run:*)",
+      "Bash(gh pr create --title 'feat: MVP complet - messagerie, avis, admin, push, déploiement Railway' --body ':*)",
+      "Bash(npx expo:*)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":8081\")",
+      "Bash(curl -s http://localhost:3000/api)",
+      "Bash(node dist/main.js)",
+      "Bash(timeout 15)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

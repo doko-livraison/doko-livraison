@@ -5,6 +5,7 @@ import { Mission, MissionStatus } from './mission.entity';
 import { CreateMissionDto } from './dto/create-mission.dto';
 import { User } from '../users/user.entity';
 import { Transporter } from '../transporters/transporter.entity';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class MissionsService {
@@ -12,6 +13,7 @@ export class MissionsService {
     @InjectRepository(Mission) private missionRepo: Repository<Mission>,
     @InjectRepository(Transporter) private transporterRepo: Repository<Transporter>,
     @InjectRepository(User) private userRepo: Repository<User>,
+    private mailService: MailService,
   ) {}
 
   async create(dto: CreateMissionDto, clientId: string): Promise<Mission> {
@@ -19,7 +21,13 @@ export class MissionsService {
     if (!client) throw new NotFoundException('Client introuvable');
 
     const mission = this.missionRepo.create({ ...dto, client });
-    return this.missionRepo.save(mission);
+    const saved = await this.missionRepo.save(mission);
+
+    // Envoi emails (non bloquant)
+    this.mailService.sendNewMissionToManager(saved, client).catch(() => {});
+    this.mailService.sendMissionConfirmationToClient(saved, client.email, client.firstName).catch(() => {});
+
+    return saved;
   }
 
   async findAll(): Promise<Mission[]> {

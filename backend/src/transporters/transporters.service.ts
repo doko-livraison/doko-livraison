@@ -6,10 +6,13 @@ import { User } from '../users/user.entity';
 
 export class CreateTransporterDto {
   vehicleType: VehicleType;
-  maxLoadKg: number;
-  serviceZones: string[];
-  prestationTypes: string[];
+  maxLoadKg?: number;
+  maxWeightKg?: number;
+  serviceZones?: string[];
+  prestationTypes?: string[];
   siret?: string;
+  phone?: string;
+  licensePlate?: string;
 }
 
 @Injectable()
@@ -23,7 +26,22 @@ export class TransportersService {
     const user = await this.userRepo.findOne({ where: { id: userId } });
     if (!user) throw new NotFoundException('Utilisateur introuvable');
 
-    const transporter = this.transporterRepo.create({ ...dto, user });
+    // Upsert : update si profil existe déjà
+    const existing = await this.transporterRepo.findOne({ where: { user: { id: userId } } });
+    const maxLoad = dto.maxWeightKg || dto.maxLoadKg || 0;
+    const profileComplete = !!(dto.vehicleType && dto.licensePlate && dto.phone && maxLoad);
+
+    if (existing) {
+      Object.assign(existing, { ...dto, maxLoadKg: maxLoad, profileComplete });
+      return this.transporterRepo.save(existing);
+    }
+
+    const transporter = this.transporterRepo.create({
+      ...dto,
+      maxLoadKg: maxLoad,
+      profileComplete,
+      user,
+    });
     return this.transporterRepo.save(transporter);
   }
 

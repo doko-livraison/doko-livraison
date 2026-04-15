@@ -6,10 +6,10 @@ import { User } from '../users/user.entity';
 
 export enum VehicleType {
   MOTO = 'moto',
-  BREAK = 'break',
-  FOURGON = 'fourgon',
+  VOITURE = 'voiture',
+  CAMIONNETTE = 'camionnette',
   CAMION = 'camion',
-  POIDS_LOURD = 'poids_lourd',
+  PLATEAU = 'plateau',
 }
 
 @Entity('transporters')
@@ -40,7 +40,16 @@ export class Transporter {
   isAvailable: boolean;
 
   @Column({ nullable: true })
+  phone: string;
+
+  @Column({ nullable: true })
+  licensePlate: string;
+
+  @Column({ nullable: true })
   siret: string;
+
+  @Column({ default: false })
+  profileComplete: boolean;
 
   @Column({ nullable: true })
   licenseUrl: string;

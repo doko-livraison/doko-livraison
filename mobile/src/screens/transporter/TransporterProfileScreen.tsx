@@ -47,29 +47,57 @@ export default function TransporterProfileScreen({ navigation }: any) {
       )}
 
       {profile && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Mon profil</Text>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Véhicule</Text>
-            <Text style={styles.infoValue}>{profile.vehicleType}</Text>
+        <>
+          {/* Statut profil */}
+          <View style={[styles.statusBanner, profile.isVerified ? styles.statusVerified : styles.statusPending]}>
+            <Text style={styles.statusText}>
+              {profile.isVerified ? '✅ Profil vérifié — Vous pouvez recevoir des missions' : '⏳ Profil en attente de vérification'}
+            </Text>
           </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Charge max</Text>
-            <Text style={styles.infoValue}>{profile.maxLoadKg} kg</Text>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Mon profil transporteur</Text>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Véhicule</Text>
+              <Text style={styles.infoValue}>{profile.vehicleType}</Text>
+            </View>
+            {profile.licensePlate && (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Immatriculation</Text>
+                <Text style={styles.infoValue}>{profile.licensePlate}</Text>
+              </View>
+            )}
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Charge max</Text>
+              <Text style={styles.infoValue}>{profile.maxLoadKg} kg</Text>
+            </View>
+            {profile.phone && (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Téléphone</Text>
+                <Text style={styles.infoValue}>{profile.phone}</Text>
+              </View>
+            )}
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Missions effectuées</Text>
+              <Text style={styles.infoValue}>{profile.totalMissions}</Text>
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Note</Text>
+              <Text style={styles.infoValue}>⭐ {profile.rating?.toFixed(1) || '—'}</Text>
+            </View>
+            <View style={styles.switchRow}>
+              <Text style={styles.infoLabel}>🟢 Disponible pour des missions</Text>
+              <Switch value={profile.isAvailable} onValueChange={toggleAvailability} trackColor={{ true: '#10B981' }} />
+            </View>
           </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Missions</Text>
-            <Text style={styles.infoValue}>{profile.totalMissions}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Note</Text>
-            <Text style={styles.infoValue}>⭐ {profile.rating.toFixed(1)}</Text>
-          </View>
-          <View style={styles.switchRow}>
-            <Text style={styles.infoLabel}>Disponible</Text>
-            <Switch value={profile.isAvailable} onValueChange={toggleAvailability} trackColor={{ true: '#10B981' }} />
-          </View>
-        </View>
+
+          <TouchableOpacity
+            style={styles.setupBtn}
+            onPress={() => navigation.navigate('TransporterProfileSetup')}
+          >
+            <Text style={styles.setupText}>✏️ Modifier mon profil</Text>
+          </TouchableOpacity>
+        </>
       )}
 
       <TouchableOpacity style={styles.logoutBtn} onPress={logout}>
@@ -97,6 +125,10 @@ const styles = StyleSheet.create({
   infoValue: { fontSize: 15, fontWeight: '600', color: '#1a1a1a' },
   logoutBtn: { margin: 16, backgroundColor: '#fff', borderRadius: 14, padding: 16, alignItems: 'center', borderWidth: 1, borderColor: '#EF4444' },
   logoutText: { color: '#EF4444', fontWeight: '700', fontSize: 15 },
-  setupBtn: { margin: 16, backgroundColor: '#F5C200', borderRadius: 14, padding: 16, alignItems: 'center' },
+  setupBtn: { marginHorizontal: 16, marginBottom: 10, backgroundColor: '#F5C200', borderRadius: 14, padding: 16, alignItems: 'center' },
   setupText: { color: '#1A3A8C', fontWeight: '700', fontSize: 15 },
+  statusBanner: { margin: 16, borderRadius: 12, padding: 12 },
+  statusVerified: { backgroundColor: '#DCFCE7' },
+  statusPending: { backgroundColor: '#FEF3C7' },
+  statusText: { fontSize: 13, fontWeight: '700', textAlign: 'center' },
 });
