@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Doko Livraison",
+    "slug": "doko-livraison",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1A3A8C"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.doko.livraison"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#1A3A8C"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.doko.livraison"
+    },
+    "web": {
+      "favicon": "./assets/logo.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/logo.png",
+          "color": "#1A3A8C"
+        }
+      ]
+    ]
+  }
+}
